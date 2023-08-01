@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IndianStatesCensusAnalser
 {
-    public class StateCensusAnalyser
+    public class CSV_Census
     {
         public int ReadStateCensusData(string path)
         {
@@ -22,10 +22,9 @@ namespace IndianStatesCensusAnalser
                     {
                         Console.WriteLine(data.State + " " + data.DensityPerSqKm + " " + data.Population + " " + data.AreaInSqKm + " ");
                     }
-                    return record.Count() - 1;
+                    return record.Count() - 1;//To skip first row of columns name.
                 }
             }
-
         }
     }
 }
