@@ -15,7 +15,7 @@ namespace IndianStatesCensusAnalser
         {
             try
             {
-                if (File.Exists(path))
+                if (path.EndsWith(".csv"))
                 {
                     using (var reader = new StreamReader(path))
                     {
@@ -32,15 +32,16 @@ namespace IndianStatesCensusAnalser
                 }
                 else
                 {
-                    throw new StateCensusException(StateCensusException.ExceptionType.CSV_FILE_NOT_FOUND,"File Does not exists");
+                    throw new StateCensusException(StateCensusException.ExceptionType.CSV_FILE_NOT_FOUND, "File is not CSV type");
                 }
             }
-            catch (StateCensusException ex)
+            catch (StateCensusException sr)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(sr.Message);
             }
             return 28;
-
         }
+
     }
-}
+    }
+
