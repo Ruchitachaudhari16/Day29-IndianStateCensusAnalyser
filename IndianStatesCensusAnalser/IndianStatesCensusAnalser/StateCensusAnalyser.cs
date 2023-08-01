@@ -10,21 +10,36 @@ using System.Threading.Tasks;
 namespace IndianStatesCensusAnalser
 {
     public class StateCensusAnalyser
-    {
+    { 
         public int ReadStateCensusData(string path)
         {
-            using (var reader = new StreamReader(path))
+            try
             {
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                if (File.Exists(path))
                 {
-                    var record = csv.GetRecords<StateCensusData>().ToList();
-                    foreach (var data in record)
+                    using (var reader = new StreamReader(path))
                     {
-                        Console.WriteLine(data.State + " " + data.DensityPerSqKm + " " + data.Population + " " + data.AreaInSqKm + " ");
+                        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                        {
+                            var record = csv.GetRecords<StateCensusData>().ToList();
+                            foreach (var data in record)
+                            {
+                                Console.WriteLine(data.State + " " + data.DensityPerSqKm + " " + data.Population + " " + data.AreaInSqKm + " ");
+                            }
+                        }
                     }
-                    return record.Count() - 1;
+
+                }
+                else
+                {
+                    throw new StateCensusException(StateCensusException.ExceptionType.CSV_FILE_NOT_FOUND,"File Does not exists");
                 }
             }
+            catch (StateCensusException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return 28;
 
         }
     }

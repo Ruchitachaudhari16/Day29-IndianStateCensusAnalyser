@@ -13,6 +13,7 @@ namespace IndianStatesCensusAnalser
     {
         public int ReadStateCensusData(string path)
         {
+
             using (var reader = new StreamReader(path))
             {
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -24,7 +25,9 @@ namespace IndianStatesCensusAnalser
                     }
                     return record.Count() - 1;//To skip first row of columns name.
                 }
+;
+            }
             }
         }
     }
-}
+
