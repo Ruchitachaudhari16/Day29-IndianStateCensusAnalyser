@@ -11,8 +11,8 @@ namespace IndianStatesCensusAnalser
         public enum ExceptionType
         {
             FILE_NOT_FOUND,
-            CSV_FILE_NOT_FOUND
-
+            CSV_FILE_NOT_FOUND,
+            DELIMETER_INCORRECT
         }
         public ExceptionType type;
         public StateCensusException(ExceptionType type, string message) :base(message)

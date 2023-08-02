@@ -10,38 +10,31 @@ using System.Threading.Tasks;
 namespace IndianStatesCensusAnalser
 {
     public class StateCensusAnalyser
-    { 
+    {
         public int ReadStateCensusData(string path)
         {
-            try
-            {
-                if (path.EndsWith(".csv"))
-                {
-                    using (var reader = new StreamReader(path))
-                    {
-                        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-                        {
-                            var record = csv.GetRecords<StateCensusData>().ToList();
-                            foreach (var data in record)
-                            {
-                                Console.WriteLine(data.State + " " + data.DensityPerSqKm + " " + data.Population + " " + data.AreaInSqKm + " ");
-                            }
-                        }
-                    }
+            if (!File.Exists(path))
+                throw new StateCensusException(StateCensusException.ExceptionType.FILE_NOT_FOUND, "File path not found");
 
-                }
-                else
-                {
-                    throw new StateCensusException(StateCensusException.ExceptionType.CSV_FILE_NOT_FOUND, "File is not CSV type");
-                }
-            }
-            catch (StateCensusException sr)
+            var read = File.ReadAllLines(path);
+            string header = read[0];
+            if (header.Contains("/"))
+                throw new StateCensusException(StateCensusException.ExceptionType.DELIMETER_INCORRECT,"Incorrect delimiter");
+
+            using (var reader = new StreamReader(path))
             {
-                Console.WriteLine(sr.Message);
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    var record = csv.GetRecords<StateCensusData>().ToList();
+                    foreach (var data in record)
+                    {
+                        Console.WriteLine(data.State + " " + data.DensityPerSqKm + " " + data.Population + " " + data.AreaInSqKm + " ");
+                    }
+                }
             }
             return 28;
-        }
 
+        }
     }
-    }
+}
 
