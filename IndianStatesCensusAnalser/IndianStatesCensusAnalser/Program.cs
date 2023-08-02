@@ -10,29 +10,16 @@ namespace IndianStatesCensusAnalser
     {
 
         public static string path = @"C:\RFP288Batch\IndianCensusAnalyserDay29\Day29-IndianStateCensusAnalyser\IndianStatesCensusAnalser\IndianStatesCensusAnalser\Files\StateCensusData.csv";
+        public static string pathStateCode = @"C:\RFP288Batch\IndianCensusAnalyserDay29\Day29-IndianStateCensusAnalyser\IndianStatesCensusAnalser\IndianStatesCensusAnalser\Files\StateCodeData.csv";
         static void Main(string[] args)
         {
-            while (true)
-            {
-                Console.WriteLine("Enter Your Choose");
-                Console.WriteLine("1-File Exists or not ");
-                Console.WriteLine("2-File extension");
-                int option = Convert.ToInt32(Console.ReadLine());
-                switch (option)
-                {
-                    case 1:
-                        Console.WriteLine(path);
-                        StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
-                        stateCensusAnalyser.ReadStateCensusData(path);
-                        break;
-                    case 2:
-                        CSV_Census cSV_Census = new CSV_Census();
-                        cSV_Census.ReadStateCensusData(path);
-                        break;
-                        Console.ReadLine();
+            CSVState cSV_State = new CSVState();
+            cSV_State.DisplayData(pathStateCode);
+            Console.ReadLine();
+
+          
                 }
             }
         }
-    }
-}
+    
     
